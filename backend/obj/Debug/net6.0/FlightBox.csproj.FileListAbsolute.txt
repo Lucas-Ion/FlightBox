@@ -118,3 +118,9 @@ C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\obj\Deb
 C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\obj\Debug\net6.0\FlightBox.pdb
 C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\obj\Debug\net6.0\FlightBox.genruntimeconfig.cache
 C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\obj\Debug\net6.0\ref\FlightBox.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\System.Web.Cors.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\System.Web.Http.Cors.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Eman2\OneDrive\Desktop\Coding\School\CPSC 471\FlightBox\backend\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
