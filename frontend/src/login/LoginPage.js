@@ -39,10 +39,23 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser}) => {
         //     .catch((error) => {
         //         console.log(error);
         //     });
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+          fetch("https://localhost:7085/api/login/airline?username=flightjet&password=password", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
     };
     const stopLogginIn = () => {
         setLoggingIn(false);
     };
+
+    logIn()
 
     return (
         <>

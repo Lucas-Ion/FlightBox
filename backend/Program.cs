@@ -16,7 +16,18 @@ builder.Services.AddSwaggerGen();
  *  These scope allows automatic mapping to Data Transfer Objects
  *  to their respective models.
 */
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddCors();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:7085", "http://localhost:5128", "http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 /*  
  *  These scopes allow manipulation of the Game Repository used without
@@ -49,6 +60,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 // Run Application
 app.Run();
