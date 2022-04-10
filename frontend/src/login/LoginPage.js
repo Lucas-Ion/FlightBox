@@ -40,7 +40,6 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser}) => {
         //         console.log(error);
         //     });
 
-
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -56,7 +55,7 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser}) => {
         setLoggingIn(false);
     };
 
-    logIn();
+    logIn()
 
     return (
         <>

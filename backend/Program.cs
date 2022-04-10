@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("https://localhost:7085", "http://localhost:5128")
+            builder.WithOrigins("https://localhost:7085", "http://localhost:5128", "http://localhost:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
         });
@@ -61,7 +61,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors("corsapp");
+app.UseCors();
 
 // Run Application
 app.Run();
