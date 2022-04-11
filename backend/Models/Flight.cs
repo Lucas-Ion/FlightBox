@@ -31,6 +31,8 @@ namespace FlightBox.Models
         public string DestinationAirport { get; set; }
         [Required]
         public string DepartureAirport { get; set; }
+        [Required]
+        public double Price { get; set; }
 
     }
 }

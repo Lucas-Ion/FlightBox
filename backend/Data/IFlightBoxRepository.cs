@@ -124,13 +124,13 @@ namespace FlightBox.Data
         <returns>
             Newly created instance of the flight that was saved.
         </returns>**/
-        Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport);
+        Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport, double price);
 
         /** <summary>
             Updates the flight to match updated information given.
         </summary>**/
         void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport);
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double price);
 
         /** <summary>
             Gets the flight that has the matching id.
@@ -139,6 +139,7 @@ namespace FlightBox.Data
             Found instance of the flight.
         </returns>**/
         Flight? GetFlight(int flight_Number);
+        List<Flight?> SearchFlights(string timeOfDeparture, string timeOfArrival, string departureAirport, string destinationAirport);
         
         /** <summary>
             This method creates a report and saves that report to the repository.

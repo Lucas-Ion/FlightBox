@@ -214,7 +214,7 @@ namespace FlightBox.Data
         }
 
         /** <summary> Inherited from Interface IFlightBoxRepository </summary> **/
-        public Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport)
+        public Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport, double price)
         {
             // Create new:
             Flight newFlight = new Flight();
@@ -227,6 +227,7 @@ namespace FlightBox.Data
             newFlight.TimeOfArrival = timeOfArrival;
             newFlight.DestinationAirport = destinationAirport;
             newFlight.DepartureAirport = departureAirport;
+            newFlight.Price = price;
 
             activeDatabaseContext.SaveChanges();
 
@@ -239,8 +240,13 @@ namespace FlightBox.Data
             return activeDatabaseContext.Flights.FirstOrDefault(flight => flight.Flight_Number == flight_Number);
         }
         
+        public List<Flight?> SearchFlights(string timeOfDeparture, string timeOfArrival, string departureAirport, string destinationAirport)
+        {
+            return activeDatabaseContext.Flights.Where(flight => ( flight.TimeOfDeparture == timeOfDeparture && flight.TimeOfArrival == timeOfArrival && flight.DepartureAirport == departureAirport && flight.DestinationAirport == destinationAirport ) ).ToList();
+        }
+
         /** <summary> Inherited from Interface IFlightBoxRepository </summary> **/
-        public void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name, string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport)
+        public void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name, string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double price)
         {
             flight.Airplane_Registration_Code = Airplane_Registration_Code;
             flight.Country_Name = Country_Name;
@@ -249,6 +255,7 @@ namespace FlightBox.Data
             flight.TimeOfArrival = TimeOfArrival;
             flight.DestinationAirport = DestinationAirport;
             flight.DepartureAirport = DepartureAirport;
+            flight.Price = price;
 
             activeDatabaseContext.SaveChanges();
         }

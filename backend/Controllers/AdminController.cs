@@ -366,7 +366,7 @@ namespace FlightBox.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Flight> PostNewFlight(int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport)
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double Price)
         {
             Airline? airline = activeRepository.GetAirlineWithCompanyName(Company_Name);
             if (airline == null)
@@ -386,7 +386,7 @@ namespace FlightBox.Controllers
                 return BadRequest("ERROR: Country Name does not exist!");
             }
 
-            var newFlight = activeRepository.PostFlight(Airplane_Registration_Code, Country_Name, Company_Name, TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport);
+            var newFlight = activeRepository.PostFlight(Airplane_Registration_Code, Country_Name, Company_Name, TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport, Price);
             string uriResponse = "Flight Created";
 
             var responseObject = new
@@ -419,7 +419,7 @@ namespace FlightBox.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult UpdateFlight (int flight_Number, int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport)
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double Price)
         {  
             Airline? airline = activeRepository.GetAirlineWithCompanyName(Company_Name);
             if (airline == null)
@@ -446,7 +446,7 @@ namespace FlightBox.Controllers
             }
 
             activeRepository.UpdateFlight(flight, Airplane_Registration_Code, Country_Name, Company_Name,
-                                          TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport);
+                                          TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport, Price);
 
             return NoContent();
         }
@@ -514,6 +514,18 @@ namespace FlightBox.Controllers
             }
 
             return Ok(country);
+        }
+
+        // Endpoint 24:
+        // GET api/admin/customer/flight/search
+        [HttpGet("flight/search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Flight> SearchFlight(string TimeOfDeparture, string TimeOfArrival, string DepartureAirport, string DestinationAirport)
+        {
+            List<Flight> flights = activeRepository.SearchFlights(TimeOfDeparture, TimeOfArrival, DepartureAirport, DestinationAirport);
+            
+            return Ok(flights);
         }
     }
 }
