@@ -18,10 +18,8 @@ namespace FlightBox.Models
         public string Company_Name { get; set; }
         private Airline Airline { get; set; }
 
-        [ForeignKey("Country")]
         [Required]
         public string Country_Name { get; set; }
-        private Country Country { get; set; }
 
         [Required]
         public string TimeOfDeparture { get; set; }

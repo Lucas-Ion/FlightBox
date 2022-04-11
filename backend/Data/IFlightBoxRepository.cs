@@ -140,6 +140,7 @@ namespace FlightBox.Data
         </returns>**/
         Flight? GetFlight(int flight_Number);
         List<Flight?> SearchFlights(string timeOfDeparture, string timeOfArrival, string departureAirport, string destinationAirport);
+        List<Flight?> GetAllFlights(string company_name);
         
         /** <summary>
             This method creates a report and saves that report to the repository.

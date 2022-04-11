@@ -380,12 +380,6 @@ namespace FlightBox.Controllers
                 return BadRequest("ERROR: Aircraft Airplane Registration Code is INVALID!");
             }
 
-            Country? country = activeRepository.GetCountry(Country_Name);
-            if (country == null)
-            {
-                return BadRequest("ERROR: Country Name does not exist!");
-            }
-
             var newFlight = activeRepository.PostFlight(Airplane_Registration_Code, Country_Name, Company_Name, TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport, Price);
             string uriResponse = "Flight Created";
 
@@ -431,12 +425,6 @@ namespace FlightBox.Controllers
             if (aircraft == null)
             {
                 return BadRequest("ERROR: Aircraft Airplane Registration Code is INVALID!");
-            }
-
-            Country? country = activeRepository.GetCountry(Country_Name);
-            if (country == null)
-            {
-                return BadRequest("ERROR: Country Name does not exist!");
             }
 
             Flight? flight = activeRepository.GetFlight(flight_Number);
@@ -524,6 +512,24 @@ namespace FlightBox.Controllers
         public ActionResult<Flight> SearchFlight(string TimeOfDeparture, string TimeOfArrival, string DepartureAirport, string DestinationAirport)
         {
             List<Flight> flights = activeRepository.SearchFlights(TimeOfDeparture, TimeOfArrival, DepartureAirport, DestinationAirport);
+            
+            return Ok(flights);
+        }
+
+        // Endpoint 25:
+        // GET api/admin/airline/flights
+        [HttpGet("airline/{airlineProfileID}/flights")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Flight> GetAllFlightsFromAirline(int airlineProfileID)
+        {
+            Airline? airline = activeRepository.GetAirline(airlineProfileID);
+            if (airline == null)
+            {
+                return BadRequest("ERROR: Customer ProfileID is INVALID!");
+            }
+
+            List<Flight> flights = activeRepository.GetAllFlights(airline.airlineCompanyName);
             
             return Ok(flights);
         }

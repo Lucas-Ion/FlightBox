@@ -245,6 +245,11 @@ namespace FlightBox.Data
             return activeDatabaseContext.Flights.Where(flight => ( flight.TimeOfDeparture == timeOfDeparture && flight.TimeOfArrival == timeOfArrival && flight.DepartureAirport == departureAirport && flight.DestinationAirport == destinationAirport ) ).ToList();
         }
 
+        public List<Flight?> GetAllFlights(string company_name)
+        {
+            return activeDatabaseContext.Flights.Where(flight => flight.Company_Name == company_name).ToList<Flight>();
+        }
+
         /** <summary> Inherited from Interface IFlightBoxRepository </summary> **/
         public void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name, string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double price)
         {
