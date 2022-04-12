@@ -337,6 +337,17 @@ namespace FlightBox.Data
         }
 
         /** <summary> Inherited from Interface IFlightBoxRepository </summary> **/
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+
+            users.AddRange(activeDatabaseContext.Customers.ToList<Customer>());
+            users.AddRange(activeDatabaseContext.Airlines.ToList<Airline>());
+
+            return users;
+        }
+
+        /** <summary> Inherited from Interface IFlightBoxRepository </summary> **/
         public bool SaveDBChanges()
         {
             return activeDatabaseContext.SaveChanges() >= 0;

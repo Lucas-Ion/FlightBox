@@ -54,6 +54,15 @@ namespace FlightBox.Data
         void UpdateCustomer(Customer? customer, string firstName, string lastName, string email, string username, string password, string creditCardNumber);
 
         /** <summary>
+            This method retrieves all users in the repository.
+        </summary>
+        <returns>
+            List of all users.
+        </returns>**/
+        List<User> GetAllUsers();
+
+        
+        /** <summary>
             This method creates baggage and saves that baggage to the repository.
         </summary>
         <returns>
@@ -131,7 +140,7 @@ namespace FlightBox.Data
         </summary>**/
         void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name,
                                      string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double price);
-
+ 
         /** <summary>
             Gets the flight that has the matching id.
         </summary>

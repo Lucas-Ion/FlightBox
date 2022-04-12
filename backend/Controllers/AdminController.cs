@@ -125,7 +125,7 @@ namespace FlightBox.Controllers
         [HttpPost("{adminProfileID}/report")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Report> PostReport(int adminProfileID, [FromQuery] string[] customerProfileIDs, [FromQuery] string[] airlineProfileIDs)
+        public ActionResult<Report> PostReport(int adminProfileID)
         {
             // If the airline does not exits, throw an exception:
             Admin admin = activeRepository.GetAdmin(adminProfileID);
@@ -135,46 +135,8 @@ namespace FlightBox.Controllers
             }
 
             // Retrieve all moves from the selected game:
-            List<User> users = new List<User>();
+            List<User> users = activeRepository.GetAllUsers();
             
-            foreach (string id in customerProfileIDs)
-            {
-                int intID = -1;
-
-                if (!Int32.TryParse(id.Substring(1), out intID))
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                // If the game does not exits, throw an exception:
-                Customer customer = activeRepository.GetCustomer(Int32.Parse(id.Substring(1)));
-                if (activeRepository.GetCustomer(intID) == null)
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                users.Add(customer);
-            }
-
-            foreach (string id in airlineProfileIDs)
-            {
-                int intID = -1;
-
-                if (!Int32.TryParse(id.Substring(1), out intID))
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                // If the airline does not exits, throw an exception:
-                Airline airline = activeRepository.GetAirline(Int32.Parse(id.Substring(1)));
-                if (activeRepository.GetAirline(intID) == null)
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                users.Add(airline);
-            }
-
             Report report = new Report();
             report.users = users;
             activeRepository.PostReport(users);
