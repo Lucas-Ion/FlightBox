@@ -54,6 +54,15 @@ namespace FlightBox.Data
         void UpdateCustomer(Customer? customer, string firstName, string lastName, string email, string username, string password, string creditCardNumber);
 
         /** <summary>
+            This method retrieves all users in the repository.
+        </summary>
+        <returns>
+            List of all users.
+        </returns>**/
+        List<User> GetAllUsers();
+
+        
+        /** <summary>
             This method creates baggage and saves that baggage to the repository.
         </summary>
         <returns>
@@ -124,14 +133,14 @@ namespace FlightBox.Data
         <returns>
             Newly created instance of the flight that was saved.
         </returns>**/
-        Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport);
+        Flight? PostFlight(int airplane_Registration_Code, string country_Name, string company_Name, string timeOfDeparture, string timeOfArrival, string destinationAirport, string departureAirport, double price);
 
         /** <summary>
             Updates the flight to match updated information given.
         </summary>**/
         void UpdateFlight(Flight flight, int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport);
-
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double price);
+ 
         /** <summary>
             Gets the flight that has the matching id.
         </summary>
@@ -139,6 +148,8 @@ namespace FlightBox.Data
             Found instance of the flight.
         </returns>**/
         Flight? GetFlight(int flight_Number);
+        List<Flight?> SearchFlights(string timeOfDeparture, string timeOfArrival, string departureAirport, string destinationAirport);
+        List<Flight?> GetAllFlights(string company_name);
         
         /** <summary>
             This method creates a report and saves that report to the repository.

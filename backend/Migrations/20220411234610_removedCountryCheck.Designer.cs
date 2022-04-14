@@ -3,6 +3,7 @@ using System;
 using FlightBox.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Tic_Tac_Toe_API.Migrations
 {
     [DbContext(typeof(FlightBoxContext))]
-    partial class FlightBoxContextModelSnapshot : ModelSnapshot
+    [Migration("20220411234610_removedCountryCheck")]
+    partial class removedCountryCheck
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
