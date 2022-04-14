@@ -6761,19 +6761,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/lucasion/.nuget/packages/": {}
+    "C:\\Users\\Eman2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/lucasion/Documents/GitHub/FlightBox/backend/FlightBox.csproj",
+      "projectUniqueName": "C:\\Users\\Eman2\\OneDrive\\Desktop\\Coding\\School\\CPSC 471\\FlightBox\\backend\\FlightBox.csproj",
       "projectName": "FlightBox",
-      "projectPath": "/Users/lucasion/Documents/GitHub/FlightBox/backend/FlightBox.csproj",
-      "packagesPath": "/Users/lucasion/.nuget/packages/",
-      "outputPath": "/Users/lucasion/Documents/GitHub/FlightBox/backend/obj/",
+      "projectPath": "C:\\Users\\Eman2\\OneDrive\\Desktop\\Coding\\School\\CPSC 471\\FlightBox\\backend\\FlightBox.csproj",
+      "packagesPath": "C:\\Users\\Eman2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eman2\\OneDrive\\Desktop\\Coding\\School\\CPSC 471\\FlightBox\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/lucasion/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Eman2\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -6854,7 +6854,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   },
