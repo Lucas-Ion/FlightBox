@@ -125,7 +125,7 @@ namespace FlightBox.Controllers
         [HttpPost("{adminProfileID}/report")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Report> PostReport(int adminProfileID, [FromQuery] string[] customerProfileIDs, [FromQuery] string[] airlineProfileIDs)
+        public ActionResult<Report> PostReport(int adminProfileID)
         {
             // If the airline does not exits, throw an exception:
             Admin admin = activeRepository.GetAdmin(adminProfileID);
@@ -135,46 +135,8 @@ namespace FlightBox.Controllers
             }
 
             // Retrieve all moves from the selected game:
-            List<User> users = new List<User>();
+            List<User> users = activeRepository.GetAllUsers();
             
-            foreach (string id in customerProfileIDs)
-            {
-                int intID = -1;
-
-                if (!Int32.TryParse(id.Substring(1), out intID))
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                // If the game does not exits, throw an exception:
-                Customer customer = activeRepository.GetCustomer(Int32.Parse(id.Substring(1)));
-                if (activeRepository.GetCustomer(intID) == null)
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                users.Add(customer);
-            }
-
-            foreach (string id in airlineProfileIDs)
-            {
-                int intID = -1;
-
-                if (!Int32.TryParse(id.Substring(1), out intID))
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                // If the airline does not exits, throw an exception:
-                Airline airline = activeRepository.GetAirline(Int32.Parse(id.Substring(1)));
-                if (activeRepository.GetAirline(intID) == null)
-                {
-                    return BadRequest("ERROR: ID " + id + " is INVALID!");
-                }
-
-                users.Add(airline);
-            }
-
             Report report = new Report();
             report.users = users;
             activeRepository.PostReport(users);
@@ -366,7 +328,7 @@ namespace FlightBox.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Flight> PostNewFlight(int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport)
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double Price)
         {
             Airline? airline = activeRepository.GetAirlineWithCompanyName(Company_Name);
             if (airline == null)
@@ -380,13 +342,7 @@ namespace FlightBox.Controllers
                 return BadRequest("ERROR: Aircraft Airplane Registration Code is INVALID!");
             }
 
-            Country? country = activeRepository.GetCountry(Country_Name);
-            if (country == null)
-            {
-                return BadRequest("ERROR: Country Name does not exist!");
-            }
-
-            var newFlight = activeRepository.PostFlight(Airplane_Registration_Code, Country_Name, Company_Name, TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport);
+            var newFlight = activeRepository.PostFlight(Airplane_Registration_Code, Country_Name, Company_Name, TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport, Price);
             string uriResponse = "Flight Created";
 
             var responseObject = new
@@ -419,7 +375,7 @@ namespace FlightBox.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult UpdateFlight (int flight_Number, int Airplane_Registration_Code, string Country_Name, string Company_Name,
-                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport)
+                                     string TimeOfDeparture, string TimeOfArrival, string DestinationAirport, string DepartureAirport, double Price)
         {  
             Airline? airline = activeRepository.GetAirlineWithCompanyName(Company_Name);
             if (airline == null)
@@ -433,12 +389,6 @@ namespace FlightBox.Controllers
                 return BadRequest("ERROR: Aircraft Airplane Registration Code is INVALID!");
             }
 
-            Country? country = activeRepository.GetCountry(Country_Name);
-            if (country == null)
-            {
-                return BadRequest("ERROR: Country Name does not exist!");
-            }
-
             Flight? flight = activeRepository.GetFlight(flight_Number);
             if (flight == null)
             {
@@ -446,7 +396,7 @@ namespace FlightBox.Controllers
             }
 
             activeRepository.UpdateFlight(flight, Airplane_Registration_Code, Country_Name, Company_Name,
-                                          TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport);
+                                          TimeOfDeparture, TimeOfArrival, DestinationAirport, DepartureAirport, Price);
 
             return NoContent();
         }
@@ -514,6 +464,36 @@ namespace FlightBox.Controllers
             }
 
             return Ok(country);
+        }
+
+        // Endpoint 24:
+        // GET api/admin/customer/flight/search
+        [HttpGet("flight/search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Flight> SearchFlight(string TimeOfDeparture, string TimeOfArrival, string DepartureAirport, string DestinationAirport)
+        {
+            List<Flight> flights = activeRepository.SearchFlights(TimeOfDeparture, TimeOfArrival, DepartureAirport, DestinationAirport);
+            
+            return Ok(flights);
+        }
+
+        // Endpoint 25:
+        // GET api/admin/airline/flights
+        [HttpGet("airline/{airlineProfileID}/flights")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Flight> GetAllFlightsFromAirline(int airlineProfileID)
+        {
+            Airline? airline = activeRepository.GetAirline(airlineProfileID);
+            if (airline == null)
+            {
+                return BadRequest("ERROR: Customer ProfileID is INVALID!");
+            }
+
+            List<Flight> flights = activeRepository.GetAllFlights(airline.airlineCompanyName);
+            
+            return Ok(flights);
         }
     }
 }

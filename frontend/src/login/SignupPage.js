@@ -6,7 +6,10 @@ import { baseURL } from '../consts/consts.js';
 const LoginPage = ({ setSigningUp, setUser, setLoggedIn }) => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [FName, setFName] = useState('');
+    const [LName, setLName] = useState('');
     const [email, setEmail] = useState('');
+    const [creditCardNumber, setCreditCardNumber] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [doPasswordsMatch, setDoPasswordsMatch] = useState(true);
     const [didFail, setDidFail] = useState(false);
@@ -41,35 +44,70 @@ const LoginPage = ({ setSigningUp, setUser, setLoggedIn }) => {
     const onEmailChange = (props) => {
         setEmail(props.target.value);
     };
+    const onFNameChange = (props) =>{
+        setFName(props.target.value);
+    }
+    const onLNameChange = (props) =>{
+        setLName(props.target.value);
+    }
+    const onCreditChange = (props) =>{
+        setCreditCardNumber(props.target.value);
+    }
 
     const signUp = () => {
-        if (doPasswordsMatch) {
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email_address: email,
-                    password: password
-                })
-            };
-            fetch(`${baseURL}/register-user`, requestOptions)
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.status === 'good') {
-                        setSigningUp(false);
-                        setUser(data.user);
-                        setLoggedIn(true);
-                    } else {
-                        setDidFail(true);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+        // if (doPasswordsMatch) {
+        //     const requestOptions = {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             username: username,
+        //             email_address: email,
+        //             password: password
+        //         })
+        //     };
+        //     fetch(`${baseURL}/register-user`, requestOptions)
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             if (data.status === 'good') {
+        //                 setSigningUp(false);
+        //                 setUser(data.user);
+        //                 setLoggedIn(true);
+        //             } else {
+        //                 setDidFail(true);
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         });
+        // }
+
+
+        console.log(FName);
+        console.log(LName);
+        console.log(email);
+        console.log(username);
+        console.log(password);
+        console.log(creditCardNumber);
+
+
+        var requestOptions = {
+            method: 'POST',
+            redirect: 'follow'
+          };
+          
+          fetch(`https://localhost:7085/api/admin/signup/customer?FirstName=${FName}&LastName=${LName}&email=${email}&username=${username}&password=${password}&creditCardNumber=${creditCardNumber}`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+            
+            setSigningUp(false);
+            setLoggedIn(true);
+            setUser(username);
+
+
     };
     const stopSigningUp = () => {
         setSigningUp(false);
@@ -84,9 +122,27 @@ const LoginPage = ({ setSigningUp, setUser, setLoggedIn }) => {
                     fontSize="medium"
                 />
             </div>
-            <div className="login-page-title">User Sign Up</div>
+            <div className="login-page-title">Sign Up</div>
             <div className="login-details-wrapper">
                 <div className="login-details">
+                <div className="FName-input-wrapper">
+                        <TextField
+                            className="FName-input"
+                            id="standard-basic-signup-FName"
+                            label="First Name"
+                            variant="standard"
+                            onChange={onFNameChange}
+                        />
+                    </div>
+                    <div className="LName-input-wrapper">
+                        <TextField
+                            className="LName-input"
+                            id="standard-basic-signup-LName"
+                            label="Last Name"
+                            variant="standard"
+                            onChange={onLNameChange}
+                        />
+                    </div>
                     <div className="email-input-wrapper">
                         <TextField
                             className="password-input"
@@ -129,6 +185,15 @@ const LoginPage = ({ setSigningUp, setUser, setLoggedIn }) => {
                                     : "Passwords don't match."
                             }
                             onChange={onConfirmPasswordChange}
+                        />
+                    </div>
+                    <div className="credit-input-wrapper mb-5">
+                        <TextField
+                            className="credit-input"
+                            id="standard-basic-signup-credit"
+                            label="Credit Card"
+                            variant="standard"
+                            onChange={onCreditChange}
                         />
                     </div>
 

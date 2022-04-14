@@ -45,17 +45,25 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser}) => {
             redirect: 'follow'
           };
           
-          fetch("https://localhost:7085/api/login/airline?username=flightjet&password=password", requestOptions)
+          fetch(`https://localhost:7085/api/login/customer?username=${username}&password=${password}`, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
+
+
+            console.log(`Logged in with ${username}`)
+            setLoggedIn(true);
+            setLoggingIn(false);
+
+
+       
 
     };
     const stopLogginIn = () => {
         setLoggingIn(false);
     };
 
-    logIn()
+    
 
     return (
         <>

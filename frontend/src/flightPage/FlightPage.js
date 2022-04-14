@@ -20,6 +20,11 @@ const FlightPage = () => {
     const [routeOfferActive, setRouteOfferActive] = useState(false);
     const [paymentActive, setPaymentActive] = useState(false);
     const [successAlert, setSuccessAlert] = useState(false);
+    const [timeOfDeparture, setTimeOfDeparture] = useState('');
+    const [timeOfArrival, setTimeOfArrival] = useState('');
+    const [departureAirport, setDestinationAirport] = useState('');
+    const [arrivalAirport, setArrivalAirport] = useState('');
+
 
     const setSuccess = () => {
         setSuccessAlert(true);
@@ -46,6 +51,18 @@ const FlightPage = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
     };
+
+
+    const pullRoutes = () =>{
+
+
+
+
+
+
+
+        
+    }
     return (
         <div style={myStyle}>
 
@@ -61,7 +78,9 @@ const FlightPage = () => {
                         <RouteSelect />
                     </div>
                     <div className="m-5 p-5">
-                        <BasicDateRangePicker />
+                        <BasicDateRangePicker
+                        
+                        onChange ={pullRoutes}/>
                     </div>
                     <div className="mx-5" style={{ width: "200px" }}>
                         <div
