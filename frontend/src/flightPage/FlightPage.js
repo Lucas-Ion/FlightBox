@@ -37,8 +37,6 @@ const FlightPage = () => {
         setPaymentActive(false);
     }
     const setRouteActive = () => {
-
-        console.log
         setRouteOfferActive(true);
     };
     const setRouteInactive = () => {
@@ -56,6 +54,7 @@ const FlightPage = () => {
 
 
     const pullRoutes = () =>{
+
 
 
 
