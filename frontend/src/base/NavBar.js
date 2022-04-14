@@ -45,6 +45,7 @@ const NavBar = ({
     const logIn = () => {
         setSigningUp(false);
         setLoggingIn(true);
+        setHomePageOpen(false);
     };
     const airplaneSignUp = () => {
       setAirplaneLoggingIn(false);
