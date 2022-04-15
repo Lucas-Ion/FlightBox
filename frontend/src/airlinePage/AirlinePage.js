@@ -13,6 +13,9 @@ const AirplanePage = () => {
     const [signupActive, setSignupActive] = useState(false);
     const [modifyActive, setModifyActive] = useState(false);
 
+
+
+
     const setActive = () => {
         setModifyActive(true);
     }

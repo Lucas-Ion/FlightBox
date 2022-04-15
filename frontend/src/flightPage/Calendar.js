@@ -7,8 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Box from '@mui/material/Box';
 
-export default function BasicDateRangePicker() {
+export default function BasicDateRangePicker({setDepart, setArrive, setIsReady}) {
   const [value, setValue] = React.useState([null, null]);
+  const [leaveDate, setLeaveDate] = React.useState ('');
+  const [arriveDate, setArriveDate] = React.useState ('');
 
   const useStyles = makeStyles({
     input: {
@@ -16,17 +18,25 @@ export default function BasicDateRangePicker() {
     }
   });
   
+  let depart =''
+  let arrive =''
+  let month = ''
+  let day = ''
+  let year = ''
+  
   const classes = useStyles();
 
   const logStart = (props) =>{
 
-console.log(props.target.value)
+setLeaveDate(props.target.value)
+console.log(leaveDate)
 
   }
   const logEnd = (props) =>{
 
-    console.log(props.target.value)
-    
+setArriveDate(props.target.value)
+console.log(arriveDate)
+
       }
 
   return (
@@ -39,12 +49,21 @@ console.log(props.target.value)
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
+        if(value[0]!= null && value[1] != null){
+          depart = value[0].getDay() + "/" + value[0].getMonth() + "/" + value[0].getFullYear() 
+          arrive = value[1].getDay() + "/" + value[1].getMonth() + "/" + value[1].getFullYear() 
+          setDepart(value[0].toLocaleDateString())
+          setArrive(value[1].toLocaleDateString())
+          setIsReady(true)
+        }
+        console.log(value)
+
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
-            <TextField {...startProps} onChange={logStart}/>
+            <TextField {...startProps}/>
             <Box className='text-dark' sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} onChange ={logEnd}/>
+            <TextField {...endProps}/>
           </React.Fragment>
         )}
        />

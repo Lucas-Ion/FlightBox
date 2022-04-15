@@ -10,11 +10,18 @@ const CreateRoute = () => {
             <label for="depart" class="form-label">Datalist example</label>
             <input class="form-control" list="datalistOptions" id="depart" placeholder="Type to search..." />
             <datalist id="datalistOptions">
-                <option value="San Francisco" />
-                <option value="New York" />
+            <option value="Calgary" />
+                <option value="Edmonton" />
                 <option value="Seattle" />
                 <option value="Los Angeles" />
                 <option value="Chicago" />
+                <option value="Phoenix" />
+                <option value="Miami" />
+                <option value="Saskatoon" />
+                <option value="Vancouver" />
+                <option value="Montreal" />
+                <option value="New York" />
+
             </datalist>
             </div>
             <form>

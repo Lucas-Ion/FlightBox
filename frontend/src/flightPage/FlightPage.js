@@ -25,7 +25,12 @@ const FlightPage = () => {
     const [departureAirport, setDestinationAirport] = useState('');
     const [arrivalAirport, setArrivalAirport] = useState('');
     const [flightResults, setFlightResults] = useState(['']);
-    const [leaveDepart, setLeaveDepart] = useState([]);
+    const [depart, setDepart] = useState('')
+    const [arrive, setArrive] = useState('')
+    const [departureCity, setDepartureCity] = useState('')
+    const [arrivalCity, setArrivalCity] = useState('')
+    const [isReady,setIsReady] = useState(false)
+
 
 
     const setSuccess = () => {
@@ -63,13 +68,10 @@ const FlightPage = () => {
 
     }
 
+   
+
     const pullRoutes = () =>{
 
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-          };
 
 
           var requestOptions = {
@@ -77,16 +79,18 @@ const FlightPage = () => {
             redirect: 'follow'
           };
           
-          fetch("https://localhost:7085/api/admin/flight/search?TimeOfDeparture=04/12/2022&TimeOfArrival=04/30/2022&DepartureAirport=Calgary&DestinationAirport=Toronto", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-          
-          fetch(`https://localhost:7085/api/admin/flight/search?TimeOfDeparture=04/12/2022&TimeOfArrival=04/30/2022&DepartureAirport=Calgary&DestinationAirport=Toronto`, requestOptions)
-            .then(response => response.text())
+
+          console.log("Info that is being passed")
+          console.log(depart)
+          console.log(arrive)
+          console.log(departureCity)
+          console.log(arrivalCity)
+         
+          fetch(`https://localhost:7085/api/admin/flight/search?TimeOfDeparture=${depart}&TimeOfArrival=${arrive}&DepartureAirport=${departureCity}&DestinationAirport=${arrivalCity}`, requestOptions)
+            .then(response => response.json())
             .then((result) => {
-                var results = [];
-                result.entries.map((result) => {
+                let results = [];
+                result.flightResults.map((result) => {
                     results.push({
                         price: result.price,
                         company_Name: result.company_Name,
@@ -95,13 +99,21 @@ const FlightPage = () => {
                     });
                 });
                 setFlightResults(results);
+            
             })
             .catch(error => console.log('error', error));
 
 
-          console.log(flightResults)
 
-        
+          console.log(flightResults)
+          console.log("This is the depart day " + depart)
+          console.log("This is the arrival day " + arrive)
+          console.log(departureCity)
+          console.log(arrivalCity)
+
+          console.log(`https://localhost:7085/api/admin/flight/search?TimeOfDeparture=${depart}&TimeOfArrival=${arrive}&DepartureAirport=${departureCity}&DestinationAirport=${arrivalCity}`)
+
+        setIsReady(false)
     }
     return (
         <div style={myStyle}>
@@ -115,10 +127,10 @@ const FlightPage = () => {
                         Please enter your Flight Information
                     </div>
                     <div className="ms-5 text-primary">
-                        <RouteSelect />
+                        <RouteSelect {...{setDepartureCity,setArrivalCity}}/>
                     </div>
                     <div className="m-5 p-5">
-                        <BasicDateRangePicker
+                        <BasicDateRangePicker {...{setDepart, setArrive, setIsReady}}
                         
                         onChange ={routeInfo}/>
                     </div>
