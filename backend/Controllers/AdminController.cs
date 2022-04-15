@@ -474,8 +474,13 @@ namespace FlightBox.Controllers
         public ActionResult<Flight> SearchFlight(string TimeOfDeparture, string TimeOfArrival, string DepartureAirport, string DestinationAirport)
         {
             List<Flight> flights = activeRepository.SearchFlights(TimeOfDeparture, TimeOfArrival, DepartureAirport, DestinationAirport);
+
+            var responseObject = new
+            {
+                flightResults = flights
+            };
             
-            return Ok(flights);
+            return Ok(responseObject);
         }
 
         // Endpoint 25:
