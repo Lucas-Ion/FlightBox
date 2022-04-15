@@ -18,6 +18,17 @@ export default function BasicDateRangePicker() {
   
   const classes = useStyles();
 
+  const logStart = (props) =>{
+
+console.log(props.target.value)
+
+  }
+  const logEnd = (props) =>{
+
+    console.log(props.target.value)
+    
+      }
+
   return (
       
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -31,9 +42,9 @@ export default function BasicDateRangePicker() {
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
-            <TextField {...startProps} />
+            <TextField {...startProps} onChange={logStart}/>
             <Box className='text-dark' sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} />
+            <TextField {...endProps} onChange ={logEnd}/>
           </React.Fragment>
         )}
        />

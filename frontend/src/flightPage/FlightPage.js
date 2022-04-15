@@ -24,6 +24,8 @@ const FlightPage = () => {
     const [timeOfArrival, setTimeOfArrival] = useState('');
     const [departureAirport, setDestinationAirport] = useState('');
     const [arrivalAirport, setArrivalAirport] = useState('');
+    const [flightResults, setFlightResults] = useState(['']);
+    const [leaveDepart, setLeaveDepart] = useState([]);
 
 
     const setSuccess = () => {
@@ -53,13 +55,51 @@ const FlightPage = () => {
     };
 
 
+    const routeInfo = (props) =>{
+
+
+        console.log(props.target.value)
+
+
+    }
+
     const pullRoutes = () =>{
 
 
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
 
 
+          var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+          fetch("https://localhost:7085/api/admin/flight/search?TimeOfDeparture=04/12/2022&TimeOfArrival=04/30/2022&DepartureAirport=Calgary&DestinationAirport=Toronto", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+          
+          fetch(`https://localhost:7085/api/admin/flight/search?TimeOfDeparture=04/12/2022&TimeOfArrival=04/30/2022&DepartureAirport=Calgary&DestinationAirport=Toronto`, requestOptions)
+            .then(response => response.text())
+            .then((result) => {
+                var results = [];
+                result.entries.map((result) => {
+                    results.push({
+                        price: result.price,
+                        company_Name: result.company_Name,
+                        departureAirport: result.departureAirport,
+                        destinationAirport: result.destinationAirport
+                    });
+                });
+                setFlightResults(results);
+            })
+            .catch(error => console.log('error', error));
 
 
+          console.log(flightResults)
 
         
     }
@@ -80,12 +120,12 @@ const FlightPage = () => {
                     <div className="m-5 p-5">
                         <BasicDateRangePicker
                         
-                        onChange ={pullRoutes}/>
+                        onChange ={routeInfo}/>
                     </div>
                     <div className="mx-5" style={{ width: "200px" }}>
                         <div
                             class="btn btn-outline-dark"
-                            onClick={setRouteActive}
+                            onClick={pullRoutes}
                             style={{ marginLeft: "7rem", width: '7rem' }}
                         >
                             Search
