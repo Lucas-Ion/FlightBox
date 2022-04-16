@@ -2,7 +2,7 @@ import React from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 
-export default class PaymentForm extends React.Component {
+export default class PaymentForm extends React.Component{
   state = {
     cvc: '',
     expiry: '',
@@ -19,6 +19,7 @@ export default class PaymentForm extends React.Component {
     const { name, value } = e.target;
     
     this.setState({ [name]: value });
+    
   }
   
   render() {
@@ -79,3 +80,4 @@ export default class PaymentForm extends React.Component {
     );
   }
 }
+

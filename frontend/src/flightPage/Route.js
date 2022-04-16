@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,28 +10,43 @@ import InteractiveList from './CompanyOfferings';
 import FolderList from './CompanyOfferings';
 import IconLabelButtons from './BookButton';
 
-export default function MediaCard() {
+export default function MediaCard({ flightEntries, departArriveArr, imageURL }) {
+
+  
+
+
+
+  const printStuff = () => {
+
+
+
+
+  }
+
+  
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="140"
-        image="https://www.roadaffair.com/wp-content/uploads/2019/06/echo-canyon-trail-camelback-mountain-phoenix.jpg"
-        alt="green iguana"
+        image= "https://blogweather.climacell.co/wp-content/uploads/2021/07/Clouds.jpeg"
+        alt=""
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Calgary to Phoenix
+          {flightEntries[0].departureAirport} to {flightEntries[0].destinationAirport}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Departure: April 2th, Arrival: April 24th
+          Departure: {departArriveArr[0]}, Arrival: {departArriveArr[1]}
+          {printStuff()}
         </Typography>
         <div>
-        <FolderList/>
+          <FolderList {...{flightEntries}} />
         </div>
       </CardContent>
-      <CardActions sx={{ marginLeft: "5rem", marginBottom: "2rem"}}>
-            <IconLabelButtons />
+      <CardActions sx={{ marginLeft: "5rem", marginBottom: "2rem" }}>
+        
       </CardActions>
     </Card>
   );

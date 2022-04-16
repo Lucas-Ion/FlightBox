@@ -7,10 +7,14 @@ export default function RouteSelect({setDepartureCity, setArrivalCity}) {
 
 const setDepart = (props) =>{
     setDepartureCity(props.target.value)
+    
+
+    
 }
 
 const setArrival = (props) =>{
         setArrivalCity(props.target.value)
+        
 }
 
     return (

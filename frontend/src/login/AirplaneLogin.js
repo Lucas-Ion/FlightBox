@@ -4,7 +4,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import './LoginPage.css';
 import { baseURL } from '../consts/consts.js';
 
-const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAirplaneLoggingIn, setAirplaneSigningUp}) => {
+const AirplaneLogin = ({setSigningUp, setAirplanePageOpen, setAirplaneLoggedIn, setLoggedIn, setLoggingIn, setAirplaneUser, setHomePageOpen, setAirplaneLoggingIn, setAirplaneSigningUp}) => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [didFail, setDidFail] = useState(false);
@@ -22,21 +22,25 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
             redirect: 'follow'
           };
           
-          fetch(`https://localhost:7085/api/login/customer?username=${username}&password=${password}`, requestOptions)
+          fetch(`https://localhost:7085/api/login/airline?username=${username}&password=${password}`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 
                console.log(result)
-                if(result === "ERROR: Customer Login is INVALID!"){
+                if(result === "ERROR: Airline Login is INVALID!"){
                     console.log("FAIL")
                 }
                 else{
                 const obj = JSON.parse(result);
                 console.log(obj)
-                setLoggedIn(true);
+                setAirplaneLoggedIn(true);
                 setLoggingIn(false);
-                setUser(obj)
+                setAirplaneUser(obj)
                 setHomePageOpen(false);
+
+                setLoggingIn(false);
+                setLoggedIn(false);
+                setSigningUp(false);
                 }
             })
             .catch(error => console.log('error', error));
@@ -48,6 +52,7 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
         setHomePageOpen(true);
         setAirplaneLoggingIn(false);
         setAirplaneSigningUp(false);
+      
     };
 
     
@@ -61,7 +66,7 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
                     fontSize="medium"
                 />
             </div>
-            <div className="login-page-title">User Login</div>
+            <div className="login-page-title">Plane Login</div>
             <div className="login-details-wrapper">
                 <div className="login-details">
                     <div className="username-input-wrapper">
@@ -113,4 +118,4 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
     );
 };
 
-export default LoginPage;
+export default AirplaneLogin;

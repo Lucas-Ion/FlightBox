@@ -4,7 +4,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import './LoginPage.css';
 import { baseURL } from '../consts/consts.js';
 
-const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAirplaneLoggingIn, setAirplaneSigningUp}) => {
+const AdminLoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAirplaneLoggingIn, setAirplaneSigningUp,  setAdminLoggedIn, setAdminLoggingIn, setAdminUser, setAdminPageOpen}) => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [didFail, setDidFail] = useState(false);
@@ -22,7 +22,7 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
             redirect: 'follow'
           };
           
-          fetch(`https://localhost:7085/api/login/customer?username=${username}&password=${password}`, requestOptions)
+          fetch(`https://localhost:7085/api/login/admin?username=${username}&password=${password}`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 
@@ -33,10 +33,12 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
                 else{
                 const obj = JSON.parse(result);
                 console.log(obj)
-                setLoggedIn(true);
-                setLoggingIn(false);
-                setUser(obj)
+                console.log(obj.profileID)
+                setAdminLoggedIn(true);
+               setAdminLoggingIn(false);
+                setAdminUser(obj)
                 setHomePageOpen(false);
+                setAdminPageOpen(true)
                 }
             })
             .catch(error => console.log('error', error));
@@ -48,6 +50,8 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
         setHomePageOpen(true);
         setAirplaneLoggingIn(false);
         setAirplaneSigningUp(false);
+        setAdminLoggedIn(false)
+        setAdminLoggingIn(false)
     };
 
     
@@ -61,7 +65,7 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
                     fontSize="medium"
                 />
             </div>
-            <div className="login-page-title">User Login</div>
+            <div className="login-page-title">Admin Login</div>
             <div className="login-details-wrapper">
                 <div className="login-details">
                     <div className="username-input-wrapper">
@@ -113,4 +117,4 @@ const LoginPage = ({ setLoggedIn, setLoggingIn, setUser, setHomePageOpen, setAir
     );
 };
 
-export default LoginPage;
+export default AdminLoginPage;
